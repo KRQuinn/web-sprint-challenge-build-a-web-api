@@ -1,7 +1,11 @@
 // Write your "projects" router here!
 
 const express = require ('express')
-const { validateUserId, validatePost, validatePostCompleted } = require('./projects-middleware')
+const { 
+    validateUserId, 
+    validatePost, 
+    validatePostCompleted,
+} = require('./projects-middleware')
 
 const router = express.Router()
 
