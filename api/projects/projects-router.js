@@ -1,7 +1,7 @@
 // Write your "projects" router here!
 
 const express = require ('express')
-const { validateUserId, validatePost } = require('./projects-middleware')
+const { validateUserId, validatePost, validatePostCompleted } = require('./projects-middleware')
 
 const router = express.Router()
 
@@ -27,6 +27,29 @@ router.post('/', validatePost, (req,res, next) => {
     })
     .catch(next)
 })
+
+router.put('/:id', validateUserId, validatePostCompleted, async (req, res, next) => {
+    const { id } = req.params
+    try {
+        await Projects.update(id, req.body)
+        res.status(200).json(req.body)
+    } catch(err) {
+        next(err)
+    }
+})
+
+router.delete('/:id', validateUserId, (req, res, next) => {
+    const { id } = req.params
+    Projects.get(id)
+    .then((project) => {
+        Projects.remove(id).then(() => {
+            res.status(200).json(project)
+        })
+    })
+    .catch(next)
+})
+
+
 
 //eslint-disable-next-line
 router.use((err, req, res, next) => {

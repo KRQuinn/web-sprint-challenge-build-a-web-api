@@ -27,7 +27,19 @@ function validatePost(req, res, next) {
     }
 }
 
+function validatePostCompleted(req, res, next) {
+    const { name, description, completed } = req.body
+    if (!name || !description || !completed == undefined) {
+        res.status(400).json({
+            message: 'missing required text field'
+        }) 
+        } else {
+        next()
+    }
+}
+
 module.exports = {
     validateUserId,
     validatePost,
+    validatePostCompleted,
 }
