@@ -18,29 +18,30 @@ function validateUserId(req, res, next) {
 
 function validatePost(req, res, next) {
     const { name, description } = req.body
+  
     if (!name || !description) {
-        res.status(400).json({
-            message: 'missing required text field',
-        })
+      res.status(400).json({
+        message: 'missing required text field',
+      })
     } else {
-        next()
+      next()
     }
-}
+  }
 
 function validatePostCompleted(req, res, next) {
     const { name, description, completed } = req.body
-
-    if (!name || !description || !completed == undefined) {
-        res.status(400).json({
-            message: 'missing required text field',
-        }) 
-        } else {
-        next()
+  
+    if (!name || !description || completed == undefined) {
+      res.status(400).json({
+        message: 'missing required text field',
+      })
+    } else {
+      next()
     }
-}
+  }
 
 module.exports = {
     validateUserId,
     validatePost,
-    validatePostCompleted,
+    validatePostCompleted
 }
