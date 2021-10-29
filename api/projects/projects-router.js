@@ -1,6 +1,7 @@
 // Write your "projects" router here!
 
 const express = require ('express')
+const { validateUserId } = require('./projects-middleware')
 
 const router = express.Router()
 
@@ -13,6 +14,10 @@ router.get('/', (req, res, next) => {
             res.status(200).json(project)
         })
         .catch(next)
+})
+
+router.get('/:id', validateUserId, (req, res) => {
+    res.json(req.project)
 })
 
 //eslint-disable-next-line
