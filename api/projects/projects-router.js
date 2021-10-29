@@ -49,7 +49,14 @@ router.delete('/:id', validateUserId, (req, res, next) => {
     .catch(next)
 })
 
-
+router.get('/:id/actions', validateUserId, (req, res, next) => {
+    const { id } = req.params
+    Projects.getProjectActions(id)
+    .then((project) => {
+        res.status(200).json(project)
+    })
+    .catch(next)
+})
 
 //eslint-disable-next-line
 router.use((err, req, res, next) => {
