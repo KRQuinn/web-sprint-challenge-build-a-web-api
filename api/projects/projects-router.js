@@ -1,7 +1,7 @@
 // Write your "projects" router here!
 
 const express = require ('express')
-const { validateUserId } = require('./projects-middleware')
+const { validateUserId, validatePost } = require('./projects-middleware')
 
 const router = express.Router()
 
@@ -18,6 +18,14 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', validateUserId, (req, res) => {
     res.json(req.project)
+})
+
+router.post('/', validatePost, (req,res, next) => {
+    Projects.insert(req.body)
+    .then((project) => {
+        res.status(201).json(project)
+    })
+    .catch(next)
 })
 
 //eslint-disable-next-line
