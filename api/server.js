@@ -11,7 +11,7 @@ const actionsRouter = require('./actions/actions-router')
 
 server.use(express.json())
 
-// server.use('/api/projects', projectsRouter)
+server.use('/api/projects', projectsRouter)
 // server.use('/api/actions', actionsRouter)
 
 server.use('*', (req, res) => {
