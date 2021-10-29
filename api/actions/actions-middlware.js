@@ -16,4 +16,21 @@ function validateUserId(req, res, next) {
   })
 }
 
-module.exports = { validateUserId }
+function validatePost(req, res, next) {
+    const { notes, description, project_id, completed } = req.body
+  
+    if (
+      !notes ||
+      !description ||
+      project_id == undefined ||
+      completed == undefined
+    ) {
+      res.status(400).json({
+        message: 'missing required text field',
+      })
+    } else {
+      next()
+    }
+  }
+
+module.exports = { validateUserId, validatePost }
