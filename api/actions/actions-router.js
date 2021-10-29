@@ -2,6 +2,7 @@
 const router = require("express").Router()
 
 const Actions = require('./actions-model')
+const { validateUserId } = require('./actions-middlware')
 
 router.get('/', (req, res, next) => {
     Actions.get(req.params.id)
@@ -9,6 +10,10 @@ router.get('/', (req, res, next) => {
         res.status(200).json(action)
       })
       .catch(next)
+  })
+
+  router.get('/:id', validateUserId, (req, res) => {
+    res.json(req.action)
   })
 
 //eslint-disable-next-line
